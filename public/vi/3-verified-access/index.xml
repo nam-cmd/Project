@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Connect to an internal web application using AWS Verified Access on AWS System Manager</title>
+    <link>//localhost:1313/vi/3-verified-access/</link>
+    <description>Recent content in Connect to an internal web application using AWS Verified Access on AWS System Manager</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>vi</language>
+    <atom:link href="//localhost:1313/vi/3-verified-access/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Run Project</title>
+      <link>//localhost:1313/vi/3-verified-access/3.5-runproject/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/vi/3-verified-access/3.5-runproject/</guid>
+      <description>Run Project Sau khi Verified Access endpoint được tạo và chuyển sang trạng thái active.&#xA;Bước tiếp theo là tạo một bản ghi mới: bản ghi tên C (CNAME) với tên miền phụ là &amp;ldquo;HR&amp;rdquo; để phù hợp với miền ứng dụng.&#xA;Chúng ta quay lại Route53 &amp;gt; Hosted zones đang sử dụng &amp;gt; Create record&#xA;Record name(Tên bản ghi) : hr.&#xA;Record type(Loại bản ghi): CNAME – Routes traffic to another domain name and to some AWS resources.</description>
+    </item>
+  </channel>
+</rss>

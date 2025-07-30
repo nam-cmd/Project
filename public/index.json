@@ -1,0 +1,113 @@
+[
+{
+	"uri": "//localhost:1313/",
+	"title": "",
+	"tags": [],
+	"description": "",
+	"content": "Connect to internal web application using AWS Verified Access Overview In this lab, we will learn and practice simply about Connecting to internal web application using AWS Verified Access\nContent Introduction AWS services to prepare AWS Verified Access Run project "
+},
+{
+	"uri": "//localhost:1313/1-introduce/",
+	"title": "Introduction",
+	"tags": [],
+	"description": "",
+	"content": "AWS Verified Access is an Amazon Web Services (AWS) service designed to provide secure, seamless access to corporate applications and resources without the need for a traditional virtual private network (VPN). It is built on the principle of Zero Trust, meaning no user or device is trusted by default.\nHighlights:\nZero Trust-based access: AWS Verified Access continuously authenticates each access request against granular, contextual access policies, ensuring that access is granted and maintained only when users meet specific security requirements.\nAdvanced security: It allows you to define sophisticated access policies based on user identity (integrating with AWS IAM Identity Center or third-party identity providers such as Okta, Azure AD, Google Workspace) and device security status (integrating with third-party device management services).\nSimplify the user experience: Users can access applications directly through a browser or app without installing and configuring a VPN client, making the experience more seamless.\nSimplify security operations: Administrators can create, group, and manage access policies for applications and resources with similar security requirements from a single interface, simplifying policy management.\nScalability: AWS Verified Access is designed to scale with your AWS environment, making it easy to manage and secure access to applications as your organization grows.\nObservability: Provides comprehensive logging and visibility into access attempts, helping to quickly identify and resolve security and connectivity issues.\nMulti-protocol support: Initially focused on HTTP(S), AWS Verified Access now supports connections over non-HTTP(S) protocols, expanding its application capabilities.\n"
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.1-createvpc/",
+	"title": "Preparing VPC",
+	"tags": [],
+	"description": "",
+	"content": "Create VPC Log in to AWS Console. Access the VPC service. In the VPC dashboard select Your VPCs . In Your VPCs select Create VPC. In VPC setting select VPC and more Name tag auto-generation : enter project name Number of Availability Zones (AZs): select 2. Number of public subnets: select 0. Number of private subnets: select 2. Number of private subnets: choose None. Once completed, select Create VPC. "
+},
+{
+	"uri": "//localhost:1313/3-verifiedaccess/3.1-verifiedaccesstrustproviders/",
+	"title": "Verified Access trust providers",
+	"tags": [],
+	"description": "",
+	"content": "Create Verified Access trust providers Log in to the AWS Management Console.\nGo to the VPC service.\nIn the left navigation bar, scroll down and find Verified Access. Select Trust providers. Select Create Verified Access trust provider.\nOptional:\n-Name tag: Enter a memorable name for your trust provider (e.g., MyOrgOIDCProvider).\n-Description: Provide a brief description.\n-Policy reference name: Enter a unique identifier that will be used in Verified Access policy rules. For example: my_oidc_idp.\n-Trust provider type: Select User trust provider.\n-User trust provider type: Select OpenID Connect (OIDC).\n-Configure OIDC options:\n-Issuer: Enter the issuer URL from your IdP (https://cognito-idp..amazonaws.com/).\n-Authorization endpoint: Enter the authorization endpoint URL from your IdP (https://.amazoncognito.com/oauth2/authorize).\n-Token endpoint: Enter the token endpoint URL from your IdP (https://.amazoncognito.com/oauth2/token).\n-User info endpoint: Enter the user info endpoint URL from your IdP (https://.amazoncognito.com/oauth2/userInfo).\n-Client ID: Enter the Client ID from your saved IdP.\n-Client secret: Enter the Client Secret from your saved IdP.\n-Scope: Enter \u0026ldquo;openid profile email\u0026rdquo;.\nSelect Create Verified Access trust provider. "
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/",
+	"title": "AWS Services to Prepare for",
+	"tags": [],
+	"description": "",
+	"content": "This entire architecture is deployed in a VPC (Virtual Private Cloud), leveraging two Availability Zones to ensure high availability.\nIn this VPC, I have set up two private subnets, creating a secure environment for our resources. To distribute traffic efficiently and securely, I use an Internal Application Load Balancer. This is a key component that routes requests to our application.\nThe unique feature of this architecture is the use of AWS Lambda as the primary compute environment. Instead of traditional servers, we will host the entire simple HR application website in Lambda functions. This approach helps to minimize operational costs, eliminate the burden of server management, and automatically scale on demand.\nIn the next presentation, I\u0026rsquo;ll walk you through step-by-step how to build this architecture directly in the AWS console, showing how surprisingly simple the deployment process is.\nContent Create VPC Create Lambda Create Load Balancing Create Domain Create Cognito user pools "
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.2-createilamdba/",
+	"title": "Create LAMBDA",
+	"tags": [],
+	"description": "",
+	"content": "CREAT LAMBDA Return to AWS Console, access the Lambda service.\nIn Lambda Console select Functions, select Create Functions\nIn Basic information, name the Function, Runtime select Python 3.12 After completing, select Create Function. Then you will be taken to the created Function. In your function select Code and scroll down to the Code source section. In the Code source section add the following code. Then select Deploy.\ndef lambda_handler(event, context):\rresponse = {\r\u0026#34;statusCode\u0026#34;: 200,\r\u0026#34;headers\u0026#34;: {\r\u0026#34;Content-Type\u0026#34;: \u0026#34;text/html\u0026#34;,\r},\r\u0026#34;body\u0026#34;: \u0026#34;\u0026#34;\u0026#34;\r\u0026lt;!DOCTYPE html\u0026gt;\r\u0026lt;html\u0026gt;\r\u0026lt;head\u0026gt;\r\u0026lt;title\u0026gt;Welcome to HR Application\u0026lt;/title\u0026gt;\r\u0026lt;style\u0026gt;\rbody {\rdisplay: flex;\rjustify-content: center;\ralign-items: center;\rheight: 100vh;\rmargin: 0;\rbackground-color: powderblue;\r}\rh1 {\rcolor: teal;\rfont-family: verdana;\rfont-size: 300%;\r}\r\u0026lt;/style\u0026gt;\r\u0026lt;/head\u0026gt;\r\u0026lt;body\u0026gt;\r\u0026lt;h1\u0026gt;Welcome to the HR Application\u0026lt;/h1\u0026gt;\r\u0026lt;/body\u0026gt;\r\u0026lt;/html\u0026gt;\r\u0026#34;\u0026#34;\u0026#34;\r}\rreturn response 5. After successfully Deploy, select Configuration, click edit. In the Time out section, set it to 5 min 0 sec and then click save, we will not change anything else.\n"
+},
+{
+	"uri": "//localhost:1313/3-verifiedaccess/3.2-verifiedaccessinstances/",
+	"title": "Verified Access instances",
+	"tags": [],
+	"description": "",
+	"content": "Verified Access instances Sign in to the AWS Management Console\nAccess the VPC service:\n-In the search bar at the top, type \u0026ldquo;VPC\u0026rdquo; and select VPC from the results.\n-Or, in the service console, go to Networking \u0026amp; Content Delivery and select VPC.\nNavigate to Verified Access Instances: -In the left navigation bar of the VPC console, scroll down to the Verified Access section.\n-Select Verified Access instances.\nStart creating a new Verified Access Instance: -On the Verified Access instances page, click the Create Verified Access instance button.\nConfigure Verified Access Instance: -Name tag:\nEnter a recognizable name for your Verified Access instance (e.g. MyInternalAppVAInstance). This name will appear in the dashboard and related resources.\n-Description (Optional):\nProvide a brief description of the purpose of this instance.\n-Trust providers:\nThis is the most important part. You need to select (or add new) the trust providers you created earlier.\n-Click Add trust provider.\nIn the pop-up window, select the type of trust provider (e.g. User trust provider).\nFrom the Trust provider drop-down list, select the specific trust provider you created (for example, the OIDC provider you set up with Cognito).\nYou can add multiple trust providers if needed (for example, one for user identity and one for device management).\n-Tags (Optional):\nThe value tag is verified here because this is the provider we created in the previous step.\n-Review and Create Instance:\nDouble-check all the settings you configured.\nWhen you are satisfied, click the Create Verified Access instance button. "
+},
+{
+	"uri": "//localhost:1313/3-verifiedaccess/",
+	"title": "AWS Verified Access",
+	"tags": [],
+	"description": "",
+	"content": "In this step, we will create Verified Access including: providers, instances, groups and endpoints.\nContent Create Verified Access providers Create Verified Access instances Create Verified Access group Create Verified Access endpoint Run Project "
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.3-createloadbalancing/",
+	"title": "Create LOAD BALANCING",
+	"tags": [],
+	"description": "",
+	"content": "Create LOAD BALANCING Go to AWS Console, access EC2 service, search for Load balancers, select Create Load balancers. In Load balancer types select Application Load Balancer In Basic configuration section, name the Load balancer, Scheme select Internal. In Network mapping select VPC and Subnets created. In Security groups section select create a new security group. In Inbound rules section, enter as shown in the image. Then select Create security group. After creating the security group, return to the Create Load balancer page. In the security group section, select the security group you just created.\nIn the Listeners and routing section, select Create target group.\nSelect Lamdba Function and name the target group, then click next. In the next section, select the Lamdba Function you created, version select $latest, click Create target group\nThen return to Create Load balancers, in the Listeners and routing section, select the target group you just created, then click Create Load balancers again.\nAfter creating, return to the Load balancers console to check if the newly created Load balancers are active.\n! MFA "
+},
+{
+	"uri": "//localhost:1313/3-verifiedaccess/3.3-verifiedaccessgroup/",
+	"title": "Verified Access group",
+	"tags": [],
+	"description": "",
+	"content": "Verified Access group Navigate to Verified Access Groups:\n-In the left navigation bar of the VPC console, scroll down to the Verified Access section.\n-Select Verified Access groups.\nBegin creating a new Verified Access Group:\n-On the Verified Access groups page, click the Create Verified Access group button. Configure the Verified Access Group:\n-Verified Access instance:\nSelect the Verified Access instance you created earlier from the drop-down list. A Verified Access group must always be associated with an instance.\n-Name tag:\nEnter a recognizable name for your Verified Access group (e.g. HRWebAppGroup or InternalToolsGroup).\n-Description (Optional):\nProvide a brief description of the purpose or applications in this group.\n-Policy definition:\nThis is where you define the access policy for this group in Cedar. All applications (Verified Access Endpoints) in this group will inherit this policy.\nYou can enter your policy directly into the editor.\npermit(principal,action,resource)\rwhen {\rcontext.cognitopolicy.email_verified == \u0026quot;true\u0026quot;\r};\r(Remember that the cognitopolicy must match the Policy reference name you gave your Trust Provider).\rTags (Optional):\nAdd key-value tags to help you organize and manage your resources. When you are satisfied, click the Create Verified Access group button. "
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.4-createdomain/",
+	"title": "Create Domain",
+	"tags": [],
+	"description": "",
+	"content": "Domain Prepare a domain name If you do not have a domain name, register one or you will not be able to do the following.\nIf you have not registered a domain name, follow these two ways: Method 1: Register a domain name through AWS Route 53. Amazon will do all the necessary steps for you. Method 2: Register a domain name through another provider (e.g. GoDaddy, Namecheap, Hostinger, PAVietnam, etc.) If you register a domain name through another provider. You need to \u0026ldquo;delegate\u0026rdquo; the management of DNS for that domain name to Route 53\nAfter successful registration, you should update the Name Servers (NS) at your original domain provider: Step 1: Create a Public Hosted Zone for your domain on Route 53: -Log in to AWS Console, go to Route 53. -Select Hosted zones \u0026gt; Create hosted zone. -Enter your domain name (e.g. Workshop.com). -Select Public hosted zone and create. -After creation, Route 53 will give you 4 unique Name Servers (NS) (e.g. ns-xxx.awsdns-yy.org). Write down these 4 NS addresses. Step 2: -Log in to the domain management page of the provider where you registered your domain (e.g. GoDaddy, Namecheap). -Find the DNS management section, set up your domain name, or change the Name Servers (usually named like \u0026ldquo;DNS Management\u0026rdquo;, \u0026ldquo;Manage Nameservers\u0026rdquo;, \u0026ldquo;Domain Settings\u0026rdquo;). -Delete all the default Name Servers of your current provider. -Add the 4 Name Servers that you got from Route 53 (in step 1). -Save the changes. 2. Connect to AWS Certificate Manager (ACM) Log in to AWS Console, go to Certificate Manager. Select List certificates \u0026gt; Request \u0026gt; Next \u0026gt; Enter Domain name \u0026gt; Request. Return to Certificate Manager Console, select the newly created certificates \u0026gt; Create records in Route 53 \u0026gt; Create records. Return to Route 53, select the created Hosted zones. Now in Hosted zones, there is a new record. Continue with Certificate Manager, select the created Certificate, check the status from Pending validation to Issued, so now we have an AWS certificate. "
+},
+{
+	"uri": "//localhost:1313/4-runproject/",
+	"title": "Run Project",
+	"tags": [],
+	"description": "",
+	"content": "Run Project After the Verified Access endpoint is created and switched to active state. The next step is to create a new record: a C-name record (CNAME) with the subdomain name \u0026ldquo;HR\u0026rdquo; to match the application domain.\nWe go back to Route53 \u0026gt; Hosted zones in use \u0026gt; Create record\nRecord name(Record name): hr.\nRecord type(Record type): CNAME – Routes traffic to another domain name and to some AWS resources.\nValue: endpoint domain taken from Verified Access endpoints.\nClick the Create record button.\nAfter completing these configuration steps, to test the application, we need to open a new window in the browser and enter the URL: https://hr.Yourdomain.com. Here my domain name is: https://hr.builder.id.com. Our Wb page will appear. Next, enter the email address and password of user 1 that we created in the cognito user pools section and click Sign in.\nNext, the website will ask us to change the password for user1, enter the new password and click Send.\nAfter clicking Send, we have logged into the HR application welcome to the HR.\nNext, we open a new tab and log in with user2, the steps are the same as with user1. But the login is not successful.\nBecause when we set up the Verified Access trust provider, we configured a Cognito policy to only grant access to users with verified email(user1). Therefore, users with unverified email will not be granted access(user2).\n"
+},
+{
+	"uri": "//localhost:1313/3-verifiedaccess/3.4-verifiedaccessendpoint/",
+	"title": "Verified Access endpoint",
+	"tags": [],
+	"description": "",
+	"content": "Verified Access endpoint Access the VPC service: -In the search bar at the top, type \u0026ldquo;VPC\u0026rdquo; and select VPC from the results.\n-Or, in the service console, navigate to Networking \u0026amp; Content Delivery and select VPC.\nNavigate to Verified Access Endpoints: -In the left navigation bar of the VPC console, scroll down to the Verified Access section.\n-Select Verified Access endpoints.\nStart creating a new Verified Access Endpoint: -On the Verified Access endpoints page, click the Create Verified Access endpoint button.\nConfigure Verified Access Endpoint: -Verified Access group:\nSelect the Verified Access group you created earlier from the drop-down list. This endpoint will be assigned to that group and inherit the group\u0026rsquo;s policies.\n-Endpoint details:\nProtocol: The protocol that Verified Access will use to communicate with your application\u0026rsquo;s destination. Here we select Http.\nAttachment type: Select VPC.\nVPC: Select the prepared VPC.\nEndpoint type: Confirm your destination type (Load Balancer or Network Interface). Here it is Load balancer.\nLoad balancer: Select the prepared Load balancer.\n-Port: The port where your Load Balancer listens for traffic for the target application, since we chose Http our Port is 80.\n-Load balancer ARN: You will select the ARN (Amazon Resource Name) of your internal Application Load Balancer (ALB) or Network Load Balancer (NLB) from the drop-down list.\n-Subnet: You will select the subnets where your Load Balancer is deployed. Verified Access will use these subnets to establish connectivity.\n-Security groups: You will select the security groups that Verified Access will use to allow access to your Load Balancer. Make sure that the Load Balancer security group allows traffic from the security groups used by Verified Access.\n-Endpoint domain prefix: You can enter a custom prefix for the Endpoint domain (for example, hr). Verified Access will generate a fully qualified domain name for your Endpoint based on this prefix and the default Verified Access domain (for example, hr.example.verified-access.us-east-1.amazonaws.com). This gives you an easier-to-remember URL.\n-Application details: Application domain: This is where you enter the domain name that users will use to access your application (for example, hr.business.id.vn). This is the custom domain name that you want to map to the Verified Access Endpoint.\n-Domain certificate ARN: If you use a custom application domain, you need to provide the ARN of a valid TLS/SSL certificate managed by AWS Certificate Manager (ACM) in the same region. This certificate will be used by Verified Access to encrypt traffic from users to your Endpoint.\n-Review and create Endpoint:\nCheck all the settings you have configured.\nWhen you are satisfied, click the Create Verified Access endpoint button.\nExtremely Important Steps After Creating the Endpoint: Once the Verified Access endpoint is created and active:\nGet the Redirect URI: Go to the details of the endpoint you just created. In the Details or Summary section, you will find an Endpoint domain (e.g. hr-app.example.verified-access.us-east-1.amazonaws.com).\nUpdate your IdP: Use this domain to build the Redirect URI for your client in your Identity Provider (IdP) (e.g. Cognito, Okta, Azure AD). The redirect URI will look like this: https://\u0026lt;ENDPOINT_DOMAIN\u0026gt;/oauth2/idpresponse\nFor example: https://hr-app.example.verified-access.us-east-1.amazonaws.com/oauth2/idpresponse You must add this URI to the list of allowed redirect URIs in your OIDC application configuration on the IdP (for example, in the Amazon Cognito User Pool App client). Otherwise, authentication will fail after the user logs in to the IdP.\n"
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.5-createcognito/",
+	"title": "Create cognito user pools",
+	"tags": [],
+	"description": "",
+	"content": "Create cognito user pools Go to AWS Console, access Cognito service, search for Load balancers, select User Pools. Click Create User Pool. Application type select Traditional web application.\nName your application: Enter a name for your User Pool (e.g. MyWebAppUserPool or MobileAppUsers). This name is only visible in the AWS console.\nOptions for sign-in identifiers: select Email .\nRequired attributes for sign-up: select Email.\nAdd a return URL: enter your callback URL.\nThe Callback URL you provide to Cognito (or any identity provider) must exactly match the URL that your application will handle the redirection to after authentication.\rClick Create user directory.\nAfter creating the User pool, return to the User pool Console and select the User pool you just created.\nIn the control bar, select User management and then select Create user.\nIn Create user, enter as shown in the image and then select Create user. We do it again but in the Email address section we will not check Mark email address as verified. After creating, we have the following 2 users: After successfully copying my Cognito domain. Next, I copied the Client ID and Client Secret that I created for the client. In total, I had all four pieces of information in the clipboard: the user pool ID, the Client ID, and the Client Secret of the Cognito domain. Now, with all of this important information, we are ready to use it to create a Verified Access trust provider in AWS. "
+},
+{
+	"uri": "//localhost:1313/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

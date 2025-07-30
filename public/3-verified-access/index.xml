@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Connect to an internal web application using AWS Verified Access on AWS System Manager</title>
+    <link>//localhost:1313/3-verified-access/</link>
+    <description>Recent content in Connect to an internal web application using AWS Verified Access on AWS System Manager</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <atom:link href="//localhost:1313/3-verified-access/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Run Project</title>
+      <link>//localhost:1313/3-verified-access/3.5-runproject/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/3-verified-access/3.5-runproject/</guid>
+      <description>Run Project After the Verified Access endpoint is created and switched to active state. The next step is to create a new record: a C-name record (CNAME) with the subdomain name &amp;ldquo;HR&amp;rdquo; to match the application domain.&#xA;We go back to Route53 &amp;gt; Hosted zones in use &amp;gt; Create record&#xA;Record name(Record name): hr.&#xA;Record type(Record type): CNAME – Routes traffic to another domain name and to some AWS resources.</description>
+    </item>
+  </channel>
+</rss>

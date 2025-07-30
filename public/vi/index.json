@@ -1,0 +1,113 @@
+[
+{
+	"uri": "//localhost:1313/vi/",
+	"title": "",
+	"tags": [],
+	"description": "",
+	"content": "Kết nối với ứng dụng web nội bộ bằng AWS Verified Access Tổng quan Trong bài lab này, chúng ta sẽ cùng nhau tiềm hiểu và thực hành đơn giản về Kết nối với ứng dụng web nội bộ bằng AWS Verified Access\nNội dung Giới thiệu Các dịch vụ AWS cần chuẩn bị AWS Verified Access Run project "
+},
+{
+	"uri": "//localhost:1313/vi/1-introduce/",
+	"title": "Giới thiệu",
+	"tags": [],
+	"description": "",
+	"content": "AWS Verified Access là một dịch vụ của Amazon Web Services (AWS) được thiết kế để cung cấp quyền truy cập an toàn và liền mạch vào các ứng dụng và tài nguyên của công ty mà không cần sử dụng mạng riêng ảo (VPN) truyền thống. Dịch vụ này được xây dựng trên nguyên tắc Zero Trust, có nghĩa là không có người dùng hay thiết bị nào được tin cậy mặc định.\nĐiểm nổi bật:\nTruy cập dựa trên Zero Trust: AWS Verified Access liên tục xác thực từng yêu cầu truy cập dựa trên các chính sách truy cập chi tiết, ngữ cảnh, đảm bảo rằng quyền truy cập chỉ được cấp và duy trì khi người dùng đáp ứng các yêu cầu bảo mật cụ thể.\nBảo mật nâng cao: Nó cho phép bạn định nghĩa các chính sách truy cập tinh vi dựa trên danh tính người dùng (tích hợp với AWS IAM Identity Center hoặc các nhà cung cấp định danh bên thứ ba như Okta, Azure AD, Google Workspace) và trạng thái bảo mật của thiết bị (tích hợp với các dịch vụ quản lý thiết bị của bên thứ ba).\nĐơn giản hóa trải nghiệm người dùng: Người dùng có thể truy cập các ứng dụng trực tiếp qua trình duyệt hoặc ứng dụng mà không cần cài đặt và cấu hình VPN client, giúp trải nghiệm liền mạch hơn.\nĐơn giản hóa hoạt động bảo mật: Quản trị viên có thể tạo, nhóm và quản lý các chính sách truy cập cho các ứng dụng và tài nguyên có yêu cầu bảo mật tương tự từ một giao diện duy nhất, giúp đơn giản hóa việc quản lý chính sách.\nKhả năng mở rộng: AWS Verified Access được thiết kế để mở rộng cùng với môi trường AWS của bạn, dễ dàng quản lý và bảo mật quyền truy cập vào các ứng dụng khi tổ chức phát triển.\nKhả năng quan sát: Cung cấp khả năng ghi nhật ký và hiển thị toàn diện về các nỗ lực truy cập, giúp nhanh chóng xác định và giải quyết các sự cố bảo mật và kết nối.\nHỗ trợ đa dạng giao thức: Ban đầu tập trung vào HTTP(S), hiện tại AWS Verified Access đã hỗ trợ kết nối qua các giao thức không phải HTTP(S), mở rộng khả năng ứng dụng.\n"
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.1-createvpc/",
+	"title": "Tạo VPC",
+	"tags": [],
+	"description": "",
+	"content": "Tạo VPC Đăng nhập vào AWS Console.\ntruy cập vào dịch vụ VPC. Trong VPC dashboard chọn Your VPCs .\nTrong Your VPCs chọn Create VPC.\nTrong VPC setting chọn VPC and more Name tag auto-generation : điền tên project Number of Availability Zones (AZs): chọn 2. Number of public subnets: chọn 0. Number of private subnets: chọn 2. Number of private subnets: chọn None. Sau khi hoàn tất chọn Create VPC.\n"
+},
+{
+	"uri": "//localhost:1313/vi/3-verifiedaccess/3.1-verifiedaccesstrustproviders/",
+	"title": "Verified Access trust providers",
+	"tags": [],
+	"description": "",
+	"content": "Tạo Verified Access trust providers Đăng nhập vào AWS Management Console.\nĐi đến dịch vụ VPC.\nTrong thanh điều hướng bên trái, cuộn xuống và tìm Verified Access. Chọn Trust providers. Chọn Create Verified Access trust provider.\nTùy chọn:\n-Name tag (Tên thẻ): Nhập tên dễ nhớ cho nhà cung cấp tin cậy của bạn (ví dụ: MyOrgOIDCProvider).\n-Description (Mô tả): Cung cấp mô tả ngắn gọn.\n-Policy reference name (Tên tham chiếu chính sách): Nhập một định danh duy nhất sẽ được sử dụng trong các quy tắc chính sách của Verified Access. Ví dụ: my_oidc_idp.\n-Trust provider type (Loại nhà cung cấp tin cậy): Chọn User trust provider.\n-User trust provider type (Loại nhà cung cấp tin cậy người dùng): Chọn OpenID Connect (OIDC).\n-Cấu hình OIDC options (Tùy chọn OIDC):\n-Issuer (Nhà phát hành): Nhập URL của nhà phát hành từ IdP của bạn(https://cognito-idp..amazonaws.com/).\n-Authorization endpoint (Điểm cuối ủy quyền): Nhập URL điểm cuối ủy quyền từ IdP của bạn(https://.amazoncognito.com/oauth2/authorize).\n-Token endpoint (Điểm cuối mã thông báo): Nhập URL điểm cuối mã thông báo từ IdP của bạn(https://.amazoncognito.com/oauth2/token).\n-User info endpoint (Điểm cuối thông tin người dùng): Nhập URL điểm cuối thông tin người dùng từ IdP của bạn(https://.amazoncognito.com/oauth2/userInfo).\n-Client ID (Mã khách hàng): Nhập Client ID từ IdP đã lưu của bạn.\n-Client secret (Bí mật khách hàng): Nhập Client Secret từ IdP đã lưu của bạn.\n-Scope: Nhập \u0026ldquo;openid profile email\u0026rdquo;.\nChọn Create Verified Access trust provider. "
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/",
+	"title": "Các dịch vụ AWS cần chuẩn bị",
+	"tags": [],
+	"description": "",
+	"content": "Toàn bộ kiến trúc này được triển khai trong một VPC (Virtual Private Cloud), tận dụng hai Availability Zones (Vùng khả dụng) để đảm bảo tính sẵn sàng cao.\nTrong VPC này, tôi đã thiết lập hai private subnets (mạng con riêng), tạo một môi trường bảo mật cho các tài nguyên của chúng ta. Để phân phối lưu lượng truy cập một cách hiệu quả và an toàn, tôi sử dụng một Internal Application Load Balancer (Bộ cân bằng tải ứng dụng nội bộ). Đây là thành phần quan trọng giúp định tuyến các yêu cầu đến ứng dụng của chúng ta.\nĐiểm đặc biệt của kiến trúc này là việc sử dụng AWS Lambda làm môi trường tính toán chính. Thay vì máy chủ truyền thống, chúng ta sẽ lưu trữ toàn bộ trang web ứng dụng nhân sự đơn giản trong các hàm Lambda. Phương pháp này giúp giảm thiểu chi phí vận hành, loại bỏ gánh nặng quản lý máy chủ và tự động mở rộng theo nhu cầu.\nTrong phần trình bày tiếp theo, tôi sẽ hướng dẫn chi tiết từng bước cách xây dựng kiến trúc này trực tiếp trên bảng điều khiển AWS, cho thấy quá trình triển khai đơn giản đến bất ngờ.\nNội dung Tạo VPC Tạo Lambda Tạo Load balancing Tạo Domain Tạo cognito user pools "
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.2-createilamdba/",
+	"title": "Tạo Lambda",
+	"tags": [],
+	"description": "",
+	"content": "Tạo Lambda Quay về AWS Console, truy cập vào dịch vụ Lambda.\nTrong Lambda Console chọn Functions, chọn Create Functions\nTrong Basic information đặt tên cho Function, Runtime chọn Python 3.12 Sau khi hoàn tất chọn Create Function. Sau đó bạn sẽ được đưa đến Function được tạo. Ở function của bạn chọn Code và kéo xuóng phần Code source. Trong phần Code source thêm đoạn code sau. Sau đó chọn Deploy.\ndef lambda_handler(event, context):\rresponse = {\r\u0026#34;statusCode\u0026#34;: 200,\r\u0026#34;headers\u0026#34;: {\r\u0026#34;Content-Type\u0026#34;: \u0026#34;text/html\u0026#34;,\r},\r\u0026#34;body\u0026#34;: \u0026#34;\u0026#34;\u0026#34;\r\u0026lt;!DOCTYPE html\u0026gt;\r\u0026lt;html\u0026gt;\r\u0026lt;head\u0026gt;\r\u0026lt;title\u0026gt;Welcome to HR Application\u0026lt;/title\u0026gt;\r\u0026lt;style\u0026gt;\rbody {\rdisplay: flex;\rjustify-content: center;\ralign-items: center;\rheight: 100vh;\rmargin: 0;\rbackground-color: powderblue;\r}\rh1 {\rcolor: teal;\rfont-family: verdana;\rfont-size: 300%;\r}\r\u0026lt;/style\u0026gt;\r\u0026lt;/head\u0026gt;\r\u0026lt;body\u0026gt;\r\u0026lt;h1\u0026gt;Welcome to the HR Application\u0026lt;/h1\u0026gt;\r\u0026lt;/body\u0026gt;\r\u0026lt;/html\u0026gt;\r\u0026#34;\u0026#34;\u0026#34;\r}\rreturn response Sau khi Deploy thành công chọn Configuration, nhấn chọn edit. Trong phần Time out chỉnh thành 5 min 0 sec rồi nhấn save, chúng ta sẽ không thay đổi bất kỳ nào khác.\n"
+},
+{
+	"uri": "//localhost:1313/vi/3-verifiedaccess/3.2-verifiedaccessinstances/",
+	"title": "Verified Access instances",
+	"tags": [],
+	"description": "",
+	"content": "Verified Access instances Đăng nhập vào AWS Management Console\nTruy cập dịch vụ VPC:\n-Trong thanh tìm kiếm ở trên cùng, nhập \u0026ldquo;VPC\u0026rdquo; và chọn VPC từ kết quả.\n-Hoặc, trong bảng điều khiển dịch vụ, tìm đến mục Networking \u0026amp; Content Delivery và chọn VPC.\nĐiều hướng đến Verified Access Instances:\n-Trong thanh điều hướng bên trái của bảng điều khiển VPC, cuộn xuống phần Verified Access.\n-Chọn Verified Access instances.\nBắt đầu tạo Verified Access Instance mới:\n-Trên trang Verified Access instances, nhấp vào nút Create Verified Access instance. Cấu hình Verified Access Instance:\n-Name tag (Tên thẻ):\nNhập một tên dễ nhận biết cho Verified Access instance của bạn (ví dụ: MyInternalAppVAInstance). Tên này sẽ xuất hiện trong bảng điều khiển và các tài nguyên liên quan.\n-Description (Mô tả - Tùy chọn):\nCung cấp mô tả ngắn gọn về mục đích của instance này.\n-Trust providers (Nhà cung cấp tin cậy):\nĐây là phần quan trọng nhất. Bạn cần chọn (hoặc thêm mới) các nhà cung cấp tin cậy mà bạn đã tạo trước đó.\n-Nhấp vào Add trust provider.\nTrong cửa sổ bật lên, chọn loại nhà cung cấp tin cậy (ví dụ: User trust provider).\nTừ danh sách thả xuống Trust provider, chọn nhà cung cấp tin cậy cụ thể mà bạn đã tạo (ví dụ: nhà cung cấp OIDC bạn đã thiết lập với Cognito).\nBạn có thể thêm nhiều nhà cung cấp tin cậy nếu cần (ví dụ: một cho danh tính người dùng và một cho quản lý thiết bị).\n-Tags (Thẻ - Tùy chọn):\nỞ thẻ value đã được xác minh ở đây vì đây là nhà cung cấp mà chúng ta đã tạo ở bước trước.\n-Xem lại và tạo Instance:\nKiểm tra lại tất cả các cài đặt bạn đã cấu hình.\nKhi bạn hài lòng, nhấp vào nút Create Verified Access instance.\n"
+},
+{
+	"uri": "//localhost:1313/vi/3-verifiedaccess/",
+	"title": "AWS Verified Access",
+	"tags": [],
+	"description": "",
+	"content": "Trong bước này, chúng ta sẽ thực hiện tạo các Verified Access gồm: providers, instances, group và endpoint.\nNội dung Tạo Verified Access providers Tạo Verified Access instances Tạo Verified Access group Tạo Verified Access endpoint Run Project "
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.3-createloadbalancing/",
+	"title": "Tạo LOAD BALANCING",
+	"tags": [],
+	"description": "",
+	"content": "Tạo LOAD BALANCING Vào AWS Console, truy cập vào dịch vụ EC2, tìm kiếm Load balancers, chọn Create Load balancers. Trong Load balancer types chọn Application Load Balancer Trong phần Basic configuration đặt tên cho Load balancer, Scheme chọn Internal. Trong Network mapping chọn VPC và Subnets đã tạo. Ở phần Security groups chọn create a new security group. Ở phần Inbound rules nhập như trong hình. Rồi chọn Create security group. Sau khi tạo xong security group quay về trang Create Load balancer. Trong phần security group chọn security group vừa tạo. Ở phần Listeners and routing chọn Create target group. Chọn Lamdba Function và đặt tên cho target group, rồi nhấn next. Trong phần tiếp theo chọn Lamdba Function đã tạo, version chọn $latest, nhấn Create target group Sau đó quay lại Create Load balancers phần Listeners and routing chọn target group vừa tạo rồi nhấn lại Create Load balancers. Sau khi tạo xong quay lại Load balancers console khiểm tra xem Load balancers vừa tạo có được active hay không. "
+},
+{
+	"uri": "//localhost:1313/vi/3-verifiedaccess/3.3-verifiedaccessgroup/",
+	"title": "Verified Access group",
+	"tags": [],
+	"description": "",
+	"content": "Verified Access group Điều hướng đến Verified Access Groups:\n-Trong thanh điều hướng bên trái của bảng điều khiển VPC, cuộn xuống phần Verified Access.\n-Chọn Verified Access groups.\nBắt đầu tạo Verified Access Group mới:\n-Trên trang Verified Access groups, nhấp vào nút Create Verified Access group.\nCấu hình Verified Access Group:\n-Verified Access instance (Instance truy cập đã được xác minh):\nChọn Verified Access instance mà bạn đã tạo trước đó từ danh sách thả xuống. Một nhóm Verified Access luôn phải được liên kết với một instance.\n-Name tag (Tên thẻ):\nNhập một tên dễ nhận biết cho Verified Access group của bạn (ví dụ: HRWebAppGroup hoặc InternalToolsGroup).\n-Description (Mô tả - Tùy chọn):\nCung cấp mô tả ngắn gọn về mục đích hoặc các ứng dụng trong nhóm này.\n-Policy definition (Định nghĩa chính sách):\nĐây là nơi bạn định nghĩa chính sách truy cập cho nhóm này bằng ngôn ngữ Cedar. Tất cả các ứng dụng (Verified Access Endpoints) trong nhóm này sẽ kế thừa chính sách này.\nBạn có thể nhập policy của mình trực tiếp vào trình soạn thảo. permit(principal,action,resource)\rwhen {\rcontext.cognitopolicy.email_verified == \u0026quot;true\u0026quot;\r};\r(Nhớ rằng cognitopolicy phải khớp với Policy reference name bạn đã đặt cho Trust Provider của mình).\rTags (Optional):\n-Tags (Thẻ - Tùy chọn): Thêm các thẻ key-value để giúp bạn tổ chức và quản lý tài nguyên của mình. Khi bạn hài lòng, nhấp vào nút Create Verified Access group. "
+},
+{
+	"uri": "//localhost:1313/vi/4-runproject/",
+	"title": "Run Project",
+	"tags": [],
+	"description": "",
+	"content": "Run Project Sau khi Verified Access endpoint được tạo và chuyển sang trạng thái active.\nBước tiếp theo là tạo một bản ghi mới: bản ghi tên C (CNAME) với tên miền phụ là \u0026ldquo;HR\u0026rdquo; để phù hợp với miền ứng dụng.\nChúng ta quay lại Route53 \u0026gt; Hosted zones đang sử dụng \u0026gt; Create record\nRecord name(Tên bản ghi) : hr.\nRecord type(Loại bản ghi): CNAME – Routes traffic to another domain name and to some AWS resources.\nValue: endpoint domain lấy từ Verified Access endpoints.\nNhấp vào nút Create record.\nSau khi hoàn tất các bước cấu hình này, để kiểm tra ứng dụng, chúng ta cần mở một cửa sổ mới trong trình duyệt và nhập URL: https://hr.Yourdomain.com. Ở đây tên miền của tôi là: https://hr.builder.id.com. Sẽ hiện ra trang Wb của chúng ta.\nTiếp theo nhập địa chỉ email và mật khẩu user 1 chúng ta đã tạo ở phần cognito user pools rồi nhấn Sign in.\nTiếp theo trang web sẽ yêu cầu chúng ta thay đổi mật khẩu cho user1, nhập mật khẩu mới rồi nhấn Send.\nSau khi nhấn Send chúng ta đã đăng nhập vào HR application welcome to the HR.\nTiếp tục chúng ta mởi một tap mới và đăng nhập với user2, các bước thực hiện giống như với user1. Nhưng đăng nhập không thành công.\nBời vì khi chúng ta thiết lập nhà cung cấp tin cậy Verified Access, đã cấu hình một chính sách Cognito chỉ cấp quyền truy cập cho những người dùng đã xác minh email(user1). Do đó, người dùng có email chưa được xác minh sẽ không được cấp quyền truy cập(user2).\n"
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.4-createdomain/",
+	"title": "Tạo Domain",
+	"tags": [],
+	"description": "",
+	"content": "Domain Chuẩn bị một tên miền Nếu bạn không có một tên miền hãy đang ký một tên miền nếu không thì không thể thực hiện các phần sau.\nNếu bạn chưa đang ký tên miền thì hãy làm theo hai cách sau đây: Cách 1: Đăng ký tên miền thông qua AWS Route 53. Amazon sẽ thực hiện toàn bộ các bước cần thiết cho bạn. Cách 2: Đăng ký tên miền thông qua một nhà cung cấp khác (ví dụ: GoDaddy, Namecheap, Hostinger, PAVietnam, vv.) Nếu bạn đăng ký tên miền thông qua một nhà cung cấp khác. Bạn cần \u0026ldquo;ủy quyền\u0026rdquo; việc quản lý DNS của tên miền đó cho Route 53\nSau khi đăng ký thành công, bạn nên cập nhật lại Name Servers (NS) tại nhà cung cấp tên miền gốc của bạn: Bước 1: Tạo một Public Hosted Zone cho tên miền của bạn trên Route 53: -Đăng nhập vào AWS Console, vào Route 53. -Chọn Hosted zones \u0026gt; Create hosted zone. -Nhập tên miền của bạn (ví dụ: Workshop.com). -Chọn Public hosted zone và tạo. -Sau khi tạo, Route 53 sẽ cấp cho bạn 4 Name Servers (NS) duy nhất (ví dụ: ns-xxx.awsdns-yy.org). Ghi lại 4 địa chỉ NS này. Bước 2: -Đăng nhập vào trang quản lý tên miền của nhà cung cấp bạn đã đăng ký tên miền (ví dụ: GoDaddy, Namecheap). -Tìm phần quản lý DNS, cài đặt tên miền, hoặc thay đổi Name Servers (thường có tên như \u0026ldquo;DNS Management\u0026rdquo;, \u0026ldquo;Manage Nameservers\u0026rdquo;, \u0026ldquo;Domain Settings\u0026rdquo;). -Xóa tất cả các Name Servers mặc định của nhà cung cấp hiện tại. -Thêm 4 Name Servers mà bạn đã lấy từ Route 53 (ở bước 1). -Lưu lại thay đổi. 2. kết nối với AWS Certificate Manager (ACM) Đăng nhập vào AWS Console, vào Certificate Manager. Chọn List certificates \u0026gt; Request \u0026gt; Next \u0026gt; Nhập tên Domain \u0026gt; Request. Quay lại Certificate Manager Console chọn certificates vừa tạo \u0026gt; Create records in Route 53 \u0026gt; Create records.\r![MFA](/images/images/5/Domain7.png?featherlight=false\u0026amp;width=90pc)\rQuay lại Route 53 chọn vào Hosted zones đã tạo. Lúc này trong Hosted zones đã có thêm 1 records mới.\r![MFA](/images/images/5/Domain8.png?featherlight=false\u0026amp;width=90pc)\rtiếp tục với Certificate Manager chọn vào Certificate đã tạo kiểm tra phần status từ trạng Pending validation\rđến trạng thái Issued nên bây giờ chúng ta có chứng chỉ AWS.\r![MFA](/images/images/5/Domain9.png?featherlight=false\u0026amp;width=90pc) "
+},
+{
+	"uri": "//localhost:1313/vi/3-verifiedaccess/3.4-verifiedaccessendpoint/",
+	"title": "Verified Access endpoint",
+	"tags": [],
+	"description": "",
+	"content": "Verified Access endpoint Truy cập dịch vụ VPC: -Trong thanh tìm kiếm ở trên cùng, nhập \u0026ldquo;VPC\u0026rdquo; và chọn VPC từ kết quả.\n-Hoặc, trong bảng điều khiển dịch vụ, tìm đến mục Networking \u0026amp; Content Delivery và chọn VPC.\nĐiều hướng đến Verified Access Endpoints: -Trong thanh điều hướng bên trái của bảng điều khiển VPC, cuộn xuống phần Verified Access.\n-Chọn Verified Access endpoints.\nBắt đầu tạo Verified Access Endpoint mới: -Trên trang Verified Access endpoints, nhấp vào nút Create Verified Access endpoint.\nCấu hình Verified Access Endpoint: -Verified Access group (Nhóm truy cập đã được xác minh):\nChọn Verified Access group mà bạn đã tạo trước đó từ danh sách thả xuống. Endpoint này sẽ được gán vào nhóm đó và kế thừa các chính sách của nhóm.\n-Endpoint details (Chi tiết điểm cuối):\nProtocol (Giao thức): Giao thức mà Verified Access sẽ sử dụng để giao tiếp với đích đến của ứng dụng của bạn. Ở đây chúng ta chọn Http.\nAttachment type (Loại đính kèm): Chọn VPC.\nVPC: Chọn VPC đã chuẩn bị.\nEndpoint type (Loại điểm cuối): Xác nhận lại loại đích đến của bạn (Load Balancer hoặc Network Interface). Ở đây là Load balancer.\nLoad balancer (Bộ cân bằng tải): Chọn Load balancer đã chuẩn bị.\n-Port (Cổng): Cổng mà Load Balancer của bạn lắng nghe lưu lượng truy cập cho ứng dụng đích, do chúng ta chọn Http nên Port của chúng ta là 80.\n-Load balancer ARN (ARN bộ cân bằng tải): Bạn sẽ chọn ARN (Amazon Resource Name) của Application Load Balancer (ALB) hoặc Network Load Balancer (NLB) nội bộ của bạn từ danh sách thả xuống.\n-Subnet (Mạng con): Bạn sẽ chọn các mạng con nơi Load Balancer của bạn được triển khai. Verified Access sẽ sử dụng các mạng con này để thiết lập kết nối.\n-Security groups (Nhóm bảo mật): Bạn sẽ chọn các nhóm bảo mật mà Verified Access sẽ sử dụng để cho phép truy cập vào Load Balancer của bạn. Đảm bảo rằng nhóm bảo mật của Load Balancer cho phép lưu lượng truy cập đến từ các nhóm bảo mật được Verified Access sử dụng.\n-Endpoint domain prefix (Tiền tố tên miền điểm cuối): Bạn có thể nhập một tiền tố tùy chỉnh cho tên miền của Endpoint (ví dụ: hr). Verified Access sẽ tạo một tên miền đầy đủ cho Endpoint của bạn dựa trên tiền tố này và tên miền mặc định của Verified Access (ví dụ: hr.example.verified-access.us-east-1.amazonaws.com). Điều này giúp bạn có một URL dễ nhớ hơn.\n-Application details (Chi tiết ứng dụng): Application domain (Tên miền ứng dụng): Đây là trường để bạn nhập tên miền mà người dùng sẽ sử dụng để truy cập ứng dụng của bạn (ví dụ: hr.buisiness.id.vn). Đây là tên miền tùy chỉnh mà bạn muốn ánh xạ tới Verified Access Endpoint.\n-Domain certificate ARN (ARN chứng chỉ tên miền): Nếu bạn sử dụng tên miền ứng dụng tùy chỉnh, bạn cần cung cấp ARN của chứng chỉ TLS/SSL hợp lệ được quản lý bởi AWS Certificate Manager (ACM) trong cùng khu vực. Chứng chỉ này sẽ được Verified Access sử dụng để mã hóa lưu lượng truy cập từ người dùng đến Endpoint của bạn.\n-Xem lại và tạo Endpoint:\nKiểm tra lại tất cả các cài đặt bạn đã cấu hình.\nKhi bạn hài lòng, nhấp vào nút Create Verified Access endpoint.\nBước Cực Kỳ Quan Trọng Sau Khi Tạo Endpoint: Sau khi Verified Access endpoint được tạo và chuyển sang trạng thái active:\nLấy Redirect URI: Đi tới chi tiết của endpoint bạn vừa tạo. Trong phần Details hoặc Summary, bạn sẽ tìm thấy một Endpoint domain (ví dụ: hr-app.example.verified-access.us-east-1.amazonaws.com).\nCập nhật IdP của bạn: Sử dụng tên miền này để xây dựng Redirect URI cho ứng dụng khách của bạn trong Identity Provider (IdP) của bạn (ví dụ: Cognito, Okta, Azure AD). Redirect URI sẽ có dạng: https://\u0026lt;ENDPOINT_DOMAIN\u0026gt;/oauth2/idpresponse\nVí dụ: https://hr-app.example.verified-access.us-east-1.amazonaws.com/oauth2/idpresponse Bạn phải thêm URI này vào danh sách các URI được phép (allowed redirect URIs) trong cấu hình ứng dụng OIDC của bạn trên IdP (ví dụ: trong Amazon Cognito User Pool App client). Nếu không, quá trình xác thực sẽ thất bại sau khi người dùng đăng nhập vào IdP.\n"
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.5-createcognito/",
+	"title": "Tạo cognito user pools",
+	"tags": [],
+	"description": "",
+	"content": "Tạo cognito user pools Vào AWS Console, truy cập vào dịch vụ Cognito, tìm kiếm Load balancers, chọn User Pools. Nhấn Create User Pool. Application type chọn Traditional web application. Name your application: Nhập một tên cho User Pool của bạn (ví dụ: MyWebAppUserPool hoặc MobileAppUsers). Tên này chỉ hiển thị trong bảng điều khiển AWS.\nOptions for sign-in identifiers: chọn Email .\nRequired attributes for sign-up: chọn Email.\nAdd a return URL: nhập URL callback của bạn.\nURL Callback bạn cung cấp cho Cognito (hoặc bất kỳ nhà cung cấp danh tính nào) phải khớp chính xác với URL mà ứng dụng của bạn sẽ xử lý việc chuyển hướng sau xác thực.\rNhấp Create user directory.\n3. Sau khi tạo xong User pool ta quay trở lại User pool Console chọn User pool vừa tạo. Ở thanh điều khiển chọn User management rồi chọn Create user.\nỞ Create user nhập như trong hình rồi chọn Create user. chúng ta lại làm lại một lần nữa nhưng ở phần Email address chúng ta sẽ không đánh dấu tích vào Mark email address as verified. Sau khi tạo xong chúng ta có 2 user sau: Sau khi hoàng thành sao chép tên miền Cognito của mình. Sau đó, tiếp tục sao chép Client ID và Client Secret mà tôi đã tạo cho ứng dụng khách. Tổng cộng, đã có cả bốn thông tin cần thiết trong bộ nhớ tạm: ID nhóm người dùng, Client ID và Client Secret của tên miền Cognito. Giờ đây, với tất cả những thông tin quan trọng này, chúng ta đã sẵn sàng sử dụng chúng để tạo một Verified Access trust provider trong AWS. "
+},
+{
+	"uri": "//localhost:1313/vi/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/vi/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
