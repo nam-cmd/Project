@@ -63,4 +63,4 @@ After completing, select **Create Function**.
 
 ![LAMDBA](/images/images/3/imagelamdba4.png?featherlight=false&width=90pc)
 
-![LAMDBA](/images/images/3/imagelamdba5.png?featherlight=false&width=90pc)
+![LAMDBA](/images/images/3/imagelamdb5.png?featherlight=false&width=90pc)

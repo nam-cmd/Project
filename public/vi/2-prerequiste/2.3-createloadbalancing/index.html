@@ -12,21 +12,21 @@
     <title>Tạo LOAD BALANCING :: AWS System Manager</title>
 
     
-    <link href="/css/nucleus.css?1753850380" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1753850380" rel="stylesheet">
-    <link href="/css/hybrid.css?1753850380" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1753850380" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1753850380" rel="stylesheet">
-    <link href="/css/auto-complete.css?1753850380" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1753850380" rel="stylesheet">
-    <link href="/css/theme.css?1753850380" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1753850380" rel="stylesheet">
+    <link href="/css/nucleus.css?1753857550" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1753857550" rel="stylesheet">
+    <link href="/css/hybrid.css?1753857550" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1753857550" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1753857550" rel="stylesheet">
+    <link href="/css/auto-complete.css?1753857550" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1753857550" rel="stylesheet">
+    <link href="/css/theme.css?1753857550" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1753857550" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1753850380" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1753857550" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1753850380"></script>
+    <script src="/js/jquery-3.3.1.min.js?1753857550"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1753850380"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1753850380"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1753857550"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1753857550"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1753850380"></script>
+<script type="text/javascript" src="/js/search.js?1753857550"></script>
 
     
   </div>
@@ -646,29 +646,28 @@
 </ol>
 <p><img alt="MFA" src="/images/images/4/imageloadbl1.png?featherlight=false&width=90pc"></p>
 <ol start="2">
-<li>Trong Load balancer types chọn <strong>Application Load Balancer</strong>
-Trong phần Basic configuration đặt tên cho Load balancer, Scheme chọn <strong>Internal</strong>.
-Trong Network mapping chọn <strong>VPC và Subnets</strong> đã tạo.
-Ở phần Security groups chọn  <strong>create a new security group</strong>.
-Ở phần Inbound rules nhập như trong hình. Rồi chọn <strong>Create security group</strong>.
-Sau khi tạo xong security group quay về trang Create Load balancer. Trong phần security group chọn security group vừa tạo.
-Ở phần Listeners and routing chọn <strong>Create target group</strong>.
-Chọn Lamdba Function và đặt tên cho target group, rồi nhấn next. Trong phần tiếp theo chọn Lamdba Function đã tạo, version chọn $latest, nhấn <strong>Create target group</strong>
-Sau đó quay lại Create Load balancers phần Listeners and routing chọn target group vừa tạo rồi nhấn lại <strong>Create Load balancers</strong>.
-Sau khi tạo xong quay lại Load balancers console khiểm tra xem Load balancers vừa tạo có được active hay không.</li>
+<li>Trong Load balancer types chọn <strong>Application Load Balancer</strong>.</li>
 </ol>
-<p><img alt="MFA" src="/images/images/4/imageloadbl2.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/images/4/imageloadbl3.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/images/4/imageloadbl4.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/images/4/imageloadbl5.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/images/4/imageloadbl6.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/4/imageloadbl7.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/images/4/imageloadbl8.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/images/4/imageloadbl9.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/images/4/imageloadbl10.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/images/4/imageloadbl11.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/4/imageloadbl12.png?featherlight=false&width=90pc">
-<img alt="MFA" src="/images/images/4/imageloadbl13.png?featherlight=false&width=90pc"></p>
+<p><img alt="MFA" src="/images/images/4/imageloadbl2.png?featherlight=false&width=90pc"></p>
+<p>Trong phần Basic configuration đặt tên cho Load balancer, Scheme chọn <strong>Internal</strong>.</p>
+<p><img alt="MFA" src="/images/images/4/imageloadbl3.png?featherlight=false&width=90pc"></p>
+<p>Trong Network mapping chọn <strong>VPC và Subnets</strong> đã tạo.</p>
+<p><img alt="MFA" src="/images/images/4/imageloadbl4.png?featherlight=false&width=90pc"></p>
+<p>Ở phần Security groups chọn  <strong>create a new security group</strong>.
+<img alt="MFA" src="/images/images/4/imageloadbl5.png?featherlight=false&width=90pc"></p>
+<p>Ở phần Inbound rules nhập như trong hình. Rồi chọn <strong>Create security group</strong>.</p>
+<p><img alt="MFA" src="/images/images/4/imageloadbl6.png?featherlight=false&width=90pc">
+<img alt="MFA" src="/images/images/4/imageloadbl7.png?featherlight=false&width=90pc"></p>
+<p>Sau khi tạo xong security group quay về trang Create Load balancer. Trong phần security group chọn security group vừa tạo.
+Ở phần Listeners and routing chọn <strong>Create target group</strong>.</p>
+<p><img alt="MFA" src="/images/images/4/imageloadbl8.png?featherlight=false&width=90pc"></p>
+<p>Chọn Lamdba Function và đặt tên cho target group, rồi nhấn next. Trong phần tiếp theo chọn Lamdba Function đã tạo, version chọn $latest, nhấn <strong>Create target group</strong>.</p>
+<p><img alt="MFA" src="/images/images/4/imageloadbl9.png?featherlight=false&width=90pc">
+<img alt="MFA" src="/images/images/4/imageloadbl11.png?featherlight=false&width=90pc"></p>
+<p>Sau đó quay lại Create Load balancers phần Listeners and routing chọn target group vừa tạo rồi nhấn lại <strong>Create Load balancers</strong>.</p>
+<p><img alt="MFA" src="/images/images/4/imageloadbl12.png?featherlight=false&width=90pc"></p>
+<p>Sau khi tạo xong quay lại Load balancers console khiểm tra xem Load balancers vừa tạo có được active hay không.</p>
+<p><img alt="MFA" src="/images/images/4/imageloadbl13.png?featherlight=false&width=90pc"></p>
 
 
 
@@ -949,19 +948,19 @@ Sau khi tạo xong quay lại Load balancers console khiểm tra xem Load balanc
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1753850380"></script>
-    <script src="/js/perfect-scrollbar.min.js?1753850380"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1753850380"></script>
-    <script src="/js/jquery.sticky.js?1753850380"></script>
-    <script src="/js/featherlight.min.js?1753850380"></script>
-    <script src="/js/highlight.pack.js?1753850380"></script>
+    <script src="/js/clipboard.min.js?1753857550"></script>
+    <script src="/js/perfect-scrollbar.min.js?1753857550"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1753857550"></script>
+    <script src="/js/jquery.sticky.js?1753857550"></script>
+    <script src="/js/featherlight.min.js?1753857550"></script>
+    <script src="/js/highlight.pack.js?1753857550"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1753850380"></script>
-    <script src="/js/learn.js?1753850380"></script>
-    <script src="/js/hugo-learn.js?1753850380"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1753857550"></script>
+    <script src="/js/learn.js?1753857550"></script>
+    <script src="/js/hugo-learn.js?1753857550"></script>
 
-    <link href="/mermaid/mermaid.css?1753850380" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1753850380"></script>
+    <link href="/mermaid/mermaid.css?1753857550" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1753857550"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
